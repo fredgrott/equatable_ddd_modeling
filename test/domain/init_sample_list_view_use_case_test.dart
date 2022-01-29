@@ -2,9 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+import 'package:dartz/dartz.dart';
 import 'package:equatable_ddd_modeling/src/domain/datasource/sample_list_view_model_data_source.dart';
+import 'package:equatable_ddd_modeling/src/domain/errors/app_error.dart';
 import 'package:equatable_ddd_modeling/src/domain/models/sample_item_model.dart';
 import 'package:equatable_ddd_modeling/src/domain/models/sample_list_view_model.dart';
+import 'package:equatable_ddd_modeling/src/domain/usecase/init_sample_list_view_model_use_case.dart';
+import 'package:equatable_ddd_modeling/src/domain/usecase/use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -18,6 +22,7 @@ void main() {
   late final SampleItemModel aTwo;
   late final SampleItemModel aThree;
   late final SampleListViewModel aSampleListViewModel;
+  late final InitSampleListViewModelUseCase usecase;
 
   setUp(() {
     aOne = SampleItemModel(1);
@@ -30,14 +35,18 @@ void main() {
     mockSampleListViewModelDataSource = SampleListViewModelDataSource(
       sampleListViewModel: aSampleListViewModel,
     ) as MockSampleListViewModelDataSource;
+
+    usecase = InitSampleListViewModelUseCase(mockSampleListViewModelDataSource);
   });
 
   test("Has a DataSource", () async {
-    when<dynamic>(() => mockSampleListViewModelDataSource)
+    when<dynamic>(() => mockSampleListViewModelDataSource.initViewModel())
         .thenReturn(aSampleListViewModel);
 
-    verifyNever(() => mockSampleListViewModelDataSource);
+    final result = usecase(NoParams());
 
-    expect(mockSampleListViewModelDataSource, aSampleListViewModel);
+    
+
+    expect(result, Right<AppError, SampleListViewModel>(aSampleListViewModel));
   });
 }
