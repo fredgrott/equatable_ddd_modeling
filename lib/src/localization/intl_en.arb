@@ -1,0 +1,6 @@
+{
+  "appTitle": "equatable_ddd_modeling",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
