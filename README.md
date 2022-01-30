@@ -8,7 +8,7 @@ A Flutter demo project to show how to use Equatable value objects as the glue be
 
 You can find the medium article with this friends free link:
 
-[Medium Article}()
+[Domain Driven Design Setup For Flutter](https://fredgrott.medium.com/domain-driven-design-setup-for-flutter-2d621f24f8b4?sk=d9fa3a5b995e31800be25d46d95ec342)
 
 And you should sign up for my Email newsletter at my medium blog:
 
